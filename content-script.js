@@ -1,5 +1,6 @@
-const scrollToElement = (className) => {
-  const element = document.querySelector(`.${className}`);
+const scrollToElement = (classNames) => {
+  const selector = classNames.split(" ").join(".");
+  const element = document.querySelector(`.${selector}`);
   if (element) {
     element.scrollIntoView({ behavior: "smooth" });
   }
@@ -7,6 +8,6 @@ const scrollToElement = (className) => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "scrollToElement") {
-    scrollToElement(message.className);
+    scrollToElement(message.classNames);
   }
 });

@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollToElementButton = document.getElementById("scrollToElementButton");
 
   scrollToElementButton.addEventListener("click", () => {
-    const className = scrollToElementInput.value;
+    const classNames = scrollToElementInput.value;
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {
         action: "scrollToElement",
-        className: className,
+        classNames: classNames,
       });
     });
   });
