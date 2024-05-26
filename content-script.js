@@ -1,3 +1,7 @@
+const getPageContent = () => {
+  return document.body.innerHTML;
+};
+
 const getElement = (classNames) => {
   const selector = classNames.split(" ").join(".");
   const element = document.querySelector(`.${selector}`);
@@ -17,10 +21,14 @@ const clickElement = (element) => {
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  const element = getElement(message.classNames);
   if (message.action === "scrollToElement") {
+    const element = getElement(message.classNames);
     scrollToElement(element);
   } else if (message.action === "clickElement") {
+    const element = getElement(message.classNames);
     clickElement(element);
+  } else if (message.action === "getContent") {
+    const content = getPageContent();
+    sendResponse({ content: content });
   }
 });
