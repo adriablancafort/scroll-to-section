@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const getContentOutput = document.getElementById("getContentOutput");
   const getContentButton = document.getElementById("getContentButton");
 
+  const goToUrlInput = document.getElementById("goToUrlInput");
+  const goToUrlButton = document.getElementById("goToUrlButton");
+
   scrollToElementButton.addEventListener("click", () => {
     const classNames = scrollToElementInput.value;
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -38,6 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (response) {
           getContentOutput.textContent = response.content;
         }
+      });
+    });
+  });
+
+  goToUrlButton.addEventListener("click", () => {
+    const url = goToUrlInput.value;
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        action: "goToUrl",
+        url: url,
       });
     });
   });

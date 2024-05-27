@@ -20,6 +20,10 @@ const clickElement = (element) => {
   }
 };
 
+const goToUrl = (url) => {
+  window.location.href = url;
+};
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "scrollToElement") {
     const element = getElement(message.classNames);
@@ -30,5 +34,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   } else if (message.action === "getContent") {
     const content = getPageContent();
     sendResponse({ content: content });
+  } else if (message.action === "goToUrl") {
+    goToUrl(message.url);
   }
 });
